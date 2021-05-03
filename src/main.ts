@@ -1,5 +1,6 @@
 import { EnvironmentLoader, ProcessEnvironment } from "@mscs/environment";
 import { join } from "path";
+import { defaultRouter } from "./router";
 
 import * as express from "express";
 import * as hbs from "express-handlebars"
@@ -36,6 +37,8 @@ async function app(config) {
     }));
 
     application.use("/dist", express.static(__dirname + "/Views/assets"));
+
+    application.use("/", defaultRouter);
 
     if(config.APP_MODE == "production") {
         application.set("trust proxy", 1);
